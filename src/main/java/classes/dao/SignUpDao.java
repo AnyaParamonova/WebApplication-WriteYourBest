@@ -3,36 +3,41 @@ package classes.dao;
 import classes.dao.connectors.IConnector;
 import classes.dao.connectors.MySQLConnector;
 import classes.dao.exceptions.DaoException;
-import classes.model.user.RegisteredUser;
-import classes.model.user.UnregisteredUser;
+import classes.model.users.AuthorizedUser;
+import classes.model.users.UnregisteredUser;
 import java.sql.*;
 
 /**
  * Created by Anastasia_Paramonova on 22.11.2016.
  */
 
-public class SignUpDao {
+public class SignUpDao extends Dao{
 
     private static String INSERT_USER_QUERY = "INSERT INTO ACCOUNTS(NICKNAME, EMAIL, PASSWORD, TYPE, STATUS, CREATION_DATE) VALUES (?, ?, ?, \"regular\", \"basic\", current_timestamp())";
     private static String SELECT_USER_ID = "SELECT ID, NICKNAME FROM ACCOUNTS WHERE NICKNAME = ?";
-
-    private IConnector connector;
 
     public SignUpDao(){
         this(new MySQLConnector());
     }
 
     public SignUpDao(IConnector connector){
-        this.connector = connector;
+        super(connector);
     }
 
-    public RegisteredUser signUpNewUser(UnregisteredUser user) throws DaoException{
+    public AuthorizedUser signUpNewUser(UnregisteredUser user) throws DaoException{
 
         if(user == null)
-            throw new DaoException("SignUpDao: Unregistered user is null");
+            throw new DaoException("SignUpDao: Unregistered user parameter is null");
 
         long addedUserId = addUserToDatabase(user);
-        return new RegisteredUser(addedUserId, user.getNickname());
+        return new AuthorizedUser(addedUserId, user.getNickname());
+    }
+
+    public boolean nicknameIsBusy(String nickname) throws DaoException{
+
+        if(nickname == null)
+            return false;
+        return nicknameExistsInDatabase(nickname);
     }
 
     private long addUserToDatabase(UnregisteredUser user) throws DaoException {
@@ -48,16 +53,16 @@ public class SignUpDao {
             insertUserQuery.setString(3, user.getPassword());
 
             if(insertUserQuery.executeUpdate() == 0)
-                throw new DaoException("SignUpDao: user wasn't insert");
+                throw new DaoException("SignUpDao: users wasn't insert");
 
             generatedKeys =  insertUserQuery.getGeneratedKeys();
             if(generatedKeys.next())
                 return generatedKeys.getLong(1);
 
-            throw new DaoException("SignUpDao: Can't get user id from result set");
+            throw new DaoException("SignUpDao: Can't get users id from result set");
         }
         catch (SQLException e){
-            throw new DaoException("SignUpDao: Error add user to database", e);
+            throw new DaoException("SignUpDao: Error add users to database", e);
         }
         finally {
             closeResultSet(generatedKeys);
@@ -66,11 +71,7 @@ public class SignUpDao {
         }
     }
 
-    public boolean nicknameIsBusy(String nickname) throws DaoException{
-
-        if(nickname == null)
-            return false;
-
+    private boolean nicknameExistsInDatabase(String nickname) throws DaoException {
         Connection connection = null;
         PreparedStatement selectUserQuery = null;
         ResultSet selectResult = null;
@@ -86,40 +87,12 @@ public class SignUpDao {
             throw new DaoException("SignUpDao: Error checking nickname", e);
         }
         finally {
-            closeConnection(connection);
-            closeStatement(selectUserQuery);
             closeResultSet(selectResult);
+            closeStatement(selectUserQuery);
+            closeConnection(connection);
         }
     }
 
-    private void closeConnection(Connection connection) throws DaoException{
-        if(connection != null){
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new DaoException("SignUpDao: Error closing connection", e);
-            }
-        }
-    }
 
-    private void closeStatement(PreparedStatement statement) throws DaoException{
-        if(statement != null){
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                throw new DaoException("SignUpDao: Error closing statement", e);
-            }
-        }
-    }
-
-    private void closeResultSet(ResultSet resultSet) throws DaoException{
-        if(resultSet != null){
-            try {
-                resultSet.close();
-            } catch (SQLException e) {
-                throw new DaoException("SignUpDao: Error closing result set", e);
-            }
-        }
-    }
 
 }

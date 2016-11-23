@@ -1,8 +1,8 @@
 package classes.dao;
 
 import classes.dao.exceptions.DaoException;
-import classes.model.user.RegisteredUser;
-import classes.model.user.UnregisteredUser;
+import classes.model.users.AuthorizedUser;
+import classes.model.users.UnregisteredUser;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -18,16 +18,15 @@ public class SignUpDaoTests {
     public void signUp_WhenUserNotExists_ShouldReturnRegisteredUserObject() throws DaoException {
         //arrange
         SignUpDao underTest = new SignUpDao();
-        UnregisteredUser valueToTest = new UnregisteredUser("Igor", "igor@mail.ru", "qwerty");
+        UnregisteredUser valueToTest = new UnregisteredUser("Antonio", "antonio@yandex.by", "qwerty");
 
         //act
-        RegisteredUser result = underTest.signUpNewUser(valueToTest);
+        AuthorizedUser actual = underTest.signUpNewUser(valueToTest);
 
         //assert
-        long expectedId = 2, actualId = result.getId();
-        String expectedNickname = "Igor", actualNickName = "Igor";
+        AuthorizedUser expected = new AuthorizedUser(2, valueToTest.getNickname());
 
-        Assert.assertTrue(expectedId == actualId && expectedNickname.equals(actualNickName));
+        Assert.assertEquals(expected, actual);
     }
 
     @Test(expected = DaoException.class)
@@ -37,7 +36,7 @@ public class SignUpDaoTests {
         UnregisteredUser valueToTest = new UnregisteredUser("Anastasia", "anastasia@gmail.com", "qwerty");
 
         //act
-        RegisteredUser result = underTest.signUpNewUser(valueToTest);
+        AuthorizedUser result = underTest.signUpNewUser(valueToTest);
     }
 
     @Test(expected = DaoException.class)
@@ -47,7 +46,7 @@ public class SignUpDaoTests {
         UnregisteredUser valueToTest = null;
 
         //act
-        RegisteredUser result = underTest.signUpNewUser(valueToTest);
+        AuthorizedUser result = underTest.signUpNewUser(valueToTest);
     }
 
     @Test
