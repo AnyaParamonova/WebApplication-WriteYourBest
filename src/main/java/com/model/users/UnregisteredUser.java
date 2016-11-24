@@ -1,4 +1,4 @@
-package classes.model.users;
+package com.model.users;
 
 /**
  * Created by Anastasia_Paramonova on 22.11.2016.
@@ -10,6 +10,14 @@ public class UnregisteredUser {
     private String password;
 
     public UnregisteredUser(String nickname, String email, String password){
+
+        if(nickname == null)
+            throw new NullPointerException("nickname");
+        if(email == null)
+            throw new NullPointerException("email");
+        if(password == null)
+            throw new NullPointerException("password");
+
         this.nickname = nickname;
         this.email = email;
         this.password = password;

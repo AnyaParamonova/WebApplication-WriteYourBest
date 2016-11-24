@@ -1,8 +1,8 @@
-package classes.dao;
+package com.dao;
 
-import classes.dao.exceptions.DaoException;
-import classes.model.users.AuthorizedUser;
-import classes.model.users.UnregisteredUser;
+import com.dao.exceptions.DaoException;
+import com.model.users.AuthorizedUser;
+import com.model.users.UnregisteredUser;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

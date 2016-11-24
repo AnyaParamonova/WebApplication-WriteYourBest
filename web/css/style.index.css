@@ -1,0 +1,21 @@
+@import url("bootstrap.min.css");
+
+#topBanner {
+    background-color: #2e8041;
+}
+
+#promptsList{
+    font-size: large;
+}
+
+#getStartedButton, #signupSubmit{
+    border-radius: 20px;
+    background-color: #2e8041;
+    border-color: white;
+    color: white;
+}
+
+#getStartedForm{
+    padding-top: 5%;
+    padding-bottom: 5%;
+}

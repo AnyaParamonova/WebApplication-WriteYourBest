@@ -1,7 +1,7 @@
-package classes.dao;
+package com.dao;
 
-import classes.dao.exceptions.DaoException;
-import classes.model.users.UnAuthorizedUser;
+import com.dao.exceptions.DaoException;
+import com.model.users.UnauthorizedUser;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -17,10 +17,10 @@ public class LogInDaoTests {
         String valueToTest = "Anastasia";
 
         //act
-        UnAuthorizedUser actual = underTest.findUser(valueToTest);
+        UnauthorizedUser actual = underTest.findUser(valueToTest);
 
         //assert
-        UnAuthorizedUser expected = new UnAuthorizedUser(1, "Anastasia", "123456");
+        UnauthorizedUser expected = new UnauthorizedUser(1, "Anastasia", "123456");
         Assert.assertEquals(expected, actual);
 
     }
@@ -32,10 +32,10 @@ public class LogInDaoTests {
         String valueToTest = "Avtandil";
 
         //act
-        UnAuthorizedUser actual = underTest.findUser(valueToTest);
+        UnauthorizedUser actual = underTest.findUser(valueToTest);
 
         //assert
-        UnAuthorizedUser expected = null;
+        UnauthorizedUser expected = null;
         Assert.assertEquals(expected, actual);
 
     }
@@ -47,7 +47,7 @@ public class LogInDaoTests {
         String valueToTest =  null;
 
         //act
-        UnAuthorizedUser actual = underTest.findUser(valueToTest);
+        UnauthorizedUser actual = underTest.findUser(valueToTest);
     }
 
 }

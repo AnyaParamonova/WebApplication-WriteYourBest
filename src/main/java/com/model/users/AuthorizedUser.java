@@ -1,4 +1,4 @@
-package classes.model.users;
+package com.model.users;
 
 /**
  * Created by Anastasia_Paramonova on 23.11.2016.
@@ -9,6 +9,10 @@ public class AuthorizedUser {
     private String nickname;
 
     public AuthorizedUser(long id, String nickname){
+
+        if(nickname == null)
+            throw new NullPointerException("nickname");
+
         this.id = id;
         this.nickname = nickname;
     }

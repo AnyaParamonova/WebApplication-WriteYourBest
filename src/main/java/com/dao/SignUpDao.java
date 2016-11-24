@@ -1,10 +1,11 @@
-package classes.dao;
+package com.dao;
 
-import classes.dao.connectors.IConnector;
-import classes.dao.connectors.MySQLConnector;
-import classes.dao.exceptions.DaoException;
-import classes.model.users.AuthorizedUser;
-import classes.model.users.UnregisteredUser;
+import com.dao.connectors.IConnector;
+import com.dao.connectors.MySQLConnector;
+import com.dao.exceptions.DaoException;
+import com.model.users.AuthorizedUser;
+import com.model.users.UnregisteredUser;
+
 import java.sql.*;
 
 /**
@@ -24,7 +25,7 @@ public class SignUpDao extends Dao{
         super(connector);
     }
 
-    public AuthorizedUser signUpNewUser(UnregisteredUser user) throws DaoException{
+    public AuthorizedUser signUpNewUser(UnregisteredUser user) throws DaoException {
 
         if(user == null)
             throw new DaoException("SignUpDao: Unregistered user parameter is null");
