@@ -31,6 +31,11 @@ public class SignUpModel {
                 return null;
             }
 
+            if(signUpDao.emailIsBusy(unregisteredUser.getEmail())){
+                errorMessage = ErrorList.BUSY_EMAIL_ERROR;
+                return null;
+            }
+
             return signUpDao.signUpNewUser(unregisteredUser);
         }
         catch (DaoException e){

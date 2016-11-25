@@ -14,8 +14,9 @@ import java.sql.*;
 
 public class SignUpDao extends Dao{
 
-    private static String INSERT_USER_QUERY = "INSERT INTO ACCOUNTS(NICKNAME, EMAIL, PASSWORD, TYPE, STATUS, CREATION_DATE) VALUES (?, ?, ?, \"regular\", \"basic\", current_timestamp())";
-    private static String SELECT_USER_ID = "SELECT ID, NICKNAME FROM ACCOUNTS WHERE NICKNAME = ?";
+    private static String INSERT_USER_QUERY = "INSERT INTO ACCOUNTS(NICKNAME, EMAIL, PASSWORD, TYPE, CREATION_DATE) VALUES (?, ?, ?, \"regular\", current_timestamp())";
+    private static String SELECT_USER_NICKNAME = "SELECT ID, NICKNAME FROM ACCOUNTS WHERE NICKNAME = ?";
+    private static String SELECT_USER_EMAIL = "SELECT ID, EMAIL FROM ACCOUNTS WHERE EMAIL = ?";
 
     public SignUpDao(){
         this(new MySQLConnector());
@@ -37,8 +38,14 @@ public class SignUpDao extends Dao{
     public boolean nicknameIsBusy(String nickname) throws DaoException{
 
         if(nickname == null)
-            return false;
+            throw new NullPointerException("nickname");
         return nicknameExistsInDatabase(nickname);
+    }
+
+    public boolean emailIsBusy(String email) throws DaoException{
+        if(email == null)
+            throw new NullPointerException("nickname");
+        return emailExistsInDatabase(email);
     }
 
     private long addUserToDatabase(UnregisteredUser user) throws DaoException {
@@ -73,19 +80,28 @@ public class SignUpDao extends Dao{
     }
 
     private boolean nicknameExistsInDatabase(String nickname) throws DaoException {
+        return checkItemIsBusy(SELECT_USER_NICKNAME, nickname, "SignUpDao: Error checking nickname");
+    }
+
+
+    private boolean emailExistsInDatabase(String email) throws DaoException {
+        return checkItemIsBusy(SELECT_USER_EMAIL, email, "SignUpDao: Error checking email");
+    }
+
+    private boolean checkItemIsBusy(String selectQuery, String parameter, String errorMessage) throws DaoException{
         Connection connection = null;
         PreparedStatement selectUserQuery = null;
         ResultSet selectResult = null;
         try{
             connection = connector.getConnection();
-            selectUserQuery = connection.prepareStatement(SELECT_USER_ID);
-            selectUserQuery.setString(1, nickname);
+            selectUserQuery = connection.prepareStatement(selectQuery);
+            selectUserQuery.setString(1, parameter);
 
             selectResult = selectUserQuery.executeQuery();
             return selectResult.next();
         }
         catch (SQLException e){
-            throw new DaoException("SignUpDao: Error checking nickname", e);
+            throw new DaoException(errorMessage, e);
         }
         finally {
             closeResultSet(selectResult);

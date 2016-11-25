@@ -6,7 +6,7 @@ html, body{
     margin: 0;
 }
 
-#signupSubmit{
+#logInSubmit{
     border-radius: 20px;
     background-color: #2e8041;
     border-color: white;
@@ -14,7 +14,7 @@ html, body{
 }
 
 #space{
-    height: 51%;
+    height: 100%;
 }
 
 #topBanner {

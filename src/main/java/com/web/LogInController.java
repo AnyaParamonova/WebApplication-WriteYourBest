@@ -2,10 +2,10 @@ package com.web;
 
 import com.model.Encryptor.HashEncrypt;
 import com.model.Encryptor.IEncrypt;
-import com.model.SignUpModel;
+import com.model.LogInModel;
 import com.model.errors.ErrorList;
 import com.model.users.AuthorizedUser;
-import com.model.users.UnregisteredUser;
+import com.model.users.UnauthorizedUser;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,10 +17,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Created by Anastasia_Paramonova on 23.11.2016.
+ * Created by Anastasia_Paramonova on 24.11.2016.
  */
-@WebServlet("/SignUp.do")
-public class SignUpController extends HttpServlet{
+
+@WebServlet("/LogIn.do")
+public class LogInController extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,24 +30,17 @@ public class SignUpController extends HttpServlet{
         PrintWriter out = response.getWriter();
 
         String nickname = request.getParameter("nickname");
-        String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String passwordRep = request.getParameter("passwordRep");
 
-        if(nickname.equals("") || email.equals("") || password.equals("") || passwordRep.equals("")){
+        if(nickname.equals("") || password.equals("")){
             out.write(ErrorList.EMPTY_FIELDS_ERROR);
             return;
         }
 
-        if(!password.equals(passwordRep)){
-            out.write(ErrorList.PASSWORDS_NOT_EQUAL_ERROR);
-            return;
-        }
-
         IEncrypt encrypt = new HashEncrypt();
-        UnregisteredUser unregisteredUser = new UnregisteredUser(nickname, email, encrypt.encryptString(password));
-        SignUpModel model = new SignUpModel(unregisteredUser);
-        AuthorizedUser authorizedUser = model.performSingUp();
+        UnauthorizedUser unauthorizedUser = new UnauthorizedUser(nickname, encrypt.encryptString(password));
+        LogInModel model = new LogInModel(unauthorizedUser);
+        AuthorizedUser authorizedUser = model.performLogIn();
         if(authorizedUser == null){
             out.write(model.getErrorMessage());
             return;
@@ -56,5 +50,4 @@ public class SignUpController extends HttpServlet{
         session.setAttribute("user", authorizedUser);
         out.write("");
     }
-
 }

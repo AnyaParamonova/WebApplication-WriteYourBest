@@ -1,7 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    HttpSession userSession = request.getSession(false);
+    if(userSession != null && userSession.getAttribute("user") != null){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/userProfile.jsp");
+            dispatcher.forward(request, response);
+    }
+%>
 <html>
 <head>
-  <title>Write your best | Main Page</title>
+  <title>Main Page | Write your best</title>
   <meta charset="utf-8">
   <meta lang="en">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,8 +35,12 @@
                                            data: {nickname: nickname, email: email, password: password, passwordRep: passwordAgain},
                                            url: 'SignUp.do',
                                            success: function (result) {
+                                             if(result != ""){
                                                $('#errorMessage').html(result);
-                                             window.location.href = '/jsp/userProfilePage.jsp';
+                                             }
+                                             else {
+                                               window.location.href = '/jsp/userProfile.jsp';
+                                             }
                                            }
                                        }
                                );
@@ -39,7 +51,6 @@
     </script>
 
 </head>
-
 <body id="page">
 <div id="topBanner">
   <nav class="navbar navbar-default" id="navigation">
@@ -58,7 +69,7 @@
 
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="html/logInPage.html">Log In</a></li>
+          <li><a href="jsp/logIn.jsp">Log In</a></li>
           <li><a href="index.jsp">Sign Up</a></li>
         </ul>
       </div>
@@ -89,6 +100,7 @@
       <form role="form">
         <div class="form-group">
           <h2>Create account</h2>
+            <span class="text-center" style="color:darkred" id="errorMessage"></span>
         </div>
         <div class="form-group">
           <label class="control-label" for="nickname">Your nickname</label>
@@ -109,25 +121,25 @@
         <div class="form-group">
           <button id="signupSubmit" type="button" value="sign up submit" class="btn btn-info btn-block">Create your account</button>
         </div>
-        <p class="text-center" style="color:darkred" id="errorMessage">Error message</p>
+
         <p class="text-center"><a href="#">Forgot your password?</a></p>
-        <p class="text-center">Already have an account? <a href="html/logInPage.html">Log in</a></p>
+        <p class="text-center">Already have an account? <a href="jsp/logIn.jsp">Log in</a></p>
       </form>
     </div>
   </div>
 </div>
-
-<nav class="navbar" id="footer">
+<br><br><br><br><br>
+<nav class="navbar-fixed-bottom" id="footer">
   <div class="container-fluid">
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-left">
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
-        <li><a href="html/logInPage.html">Login</a></li>
+        <li><a href="jsp/logIn.jsp">Login</a></li>
         <li><a href="index.jsp">Signup</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <p class="nav navbar-nav navbar-right">Paramonova Anastasia</p>
+        <li>Paramonova Anastasia</li>
       </ul>
     </div>
   </div>

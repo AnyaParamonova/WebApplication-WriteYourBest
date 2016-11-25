@@ -1,20 +1,22 @@
 package com.model.users;
 
 /**
- * Created by Anastasia_Paramonova on 23.11.2016.
+ * Created by Anastasia_Paramonova on 25.11.2016.
  */
-public class UnauthorizedUser {
+public class SelectedUser {
 
+    private long id;
     private String nickname;
     private String password;
 
-    public UnauthorizedUser(String nickname, String password){
+    public SelectedUser(long id, String nickname, String password){
 
         if(nickname == null)
             throw new NullPointerException("nickname");
         if(password == null)
             throw new NullPointerException("password");
 
+        this.id = id;
         this.nickname = nickname;
         this.password = password;
     }
@@ -27,13 +29,18 @@ public class UnauthorizedUser {
         return password;
     }
 
+    public long getId(){
+        return id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UnauthorizedUser)) return false;
+        if (!(o instanceof SelectedUser)) return false;
 
-        UnauthorizedUser that = (UnauthorizedUser) o;
+        SelectedUser that = (SelectedUser) o;
 
+        if (id != that.id) return false;
         if (!nickname.equals(that.nickname)) return false;
         return password.equals(that.password);
 
@@ -41,7 +48,8 @@ public class UnauthorizedUser {
 
     @Override
     public int hashCode() {
-        int result = nickname.hashCode();
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + nickname.hashCode();
         result = 31 * result + password.hashCode();
         return result;
     }

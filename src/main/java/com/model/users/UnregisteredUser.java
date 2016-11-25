@@ -42,17 +42,17 @@ public class UnregisteredUser {
 
         UnregisteredUser that = (UnregisteredUser) o;
 
-        if (nickname != null ? !nickname.equals(that.nickname) : that.nickname != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        return password != null ? password.equals(that.password) : that.password == null;
+        if (!nickname.equals(that.nickname)) return false;
+        if (!email.equals(that.email)) return false;
+        return password.equals(that.password);
 
     }
 
     @Override
     public int hashCode() {
-        int result = nickname != null ? nickname.hashCode() : 0;
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
+        int result = nickname.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + password.hashCode();
         return result;
     }
 }

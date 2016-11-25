@@ -1,10 +1,5 @@
 @import url("bootstrap.min.css");
 
-html, body{
-    height: 100%;
-    padding: 0;
-    margin: 0;
-}
 
 #editProfileSubmit{
     border-radius: 10px;
@@ -13,16 +8,7 @@ html, body{
     color: white;
 }
 
-#topBanner {
-    background-color: #2e8041;
-    height: 50%;
-}
-
 #profileInformation{
     background-color: #2e8041;
     color: white;
-}
-
-#space{
-    height: 42%;
 }

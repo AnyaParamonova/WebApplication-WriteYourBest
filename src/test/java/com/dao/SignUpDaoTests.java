@@ -75,14 +75,53 @@ public class SignUpDaoTests {
         Assert.assertFalse(result);
     }
 
-    @Test
-    public void checkNicknameBusy_IncorrectInput_ShouldReturnFalse() throws DaoException{
+    @Test(expected = NullPointerException.class)
+    public void checkNicknameBusy_IncorrectInput_ShouldThrowException() throws DaoException{
         //arrange
         SignUpDao underTest = new SignUpDao();
         String valueToTest = null;
 
         //act
         boolean result = underTest.nicknameIsBusy(valueToTest);
+
+        //assert
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void checkEmailBusy_WhenEmailBusy_ShouldReturnTrue() throws DaoException{
+        //arrange
+        SignUpDao underTest = new SignUpDao();
+        String valueToTest = "anya9182561@gmail.com";
+
+        //act
+        boolean result = underTest.emailIsBusy(valueToTest);
+
+        //assert
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void checkEmailBusy_WhenEmailNotBusy_ShouldReturnFalse() throws DaoException{
+        //arrange
+        SignUpDao underTest = new SignUpDao();
+        String valueToTest = "paramanastasia@gmail.com";
+
+        //act
+        boolean result = underTest.emailIsBusy(valueToTest);
+
+        //assert
+        Assert.assertFalse(result);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void checkEmailBusy_IncorrectInput_ShouldThrowException() throws DaoException{
+        //arrange
+        SignUpDao underTest = new SignUpDao();
+        String valueToTest = null;
+
+        //act
+        boolean result = underTest.emailIsBusy(valueToTest);
 
         //assert
         Assert.assertFalse(result);

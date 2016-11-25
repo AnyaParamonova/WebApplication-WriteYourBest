@@ -3,6 +3,7 @@ package com.dao;
 import com.dao.connectors.IConnector;
 import com.dao.connectors.MySQLConnector;
 import com.dao.exceptions.DaoException;
+import com.model.users.SelectedUser;
 import com.model.users.UnauthorizedUser;
 
 import java.sql.Connection;
@@ -26,14 +27,14 @@ public class LogInDao extends Dao{
         super(connector);
     }
 
-    public UnauthorizedUser findUser(String nickname) throws DaoException {
+    public SelectedUser findUser(String nickname) throws DaoException {
         if(nickname == null)
             throw new DaoException("LogInDao: Unregistered user parameter is null");
 
         return getUserFromDatabase(nickname);
     }
 
-    private UnauthorizedUser getUserFromDatabase(String nickname) throws DaoException {
+    private SelectedUser getUserFromDatabase(String nickname) throws DaoException {
         Connection connection = null;
         PreparedStatement selectUserQuery = null;
         ResultSet selectResult = null;
@@ -48,7 +49,7 @@ public class LogInDao extends Dao{
                 String name = selectResult.getString("nickname");
                 String password = selectResult.getString("password");
 
-                return new UnauthorizedUser(id, name, password);
+                return new SelectedUser(id, name, password);
             }
             return null;
         }

@@ -1,7 +1,6 @@
 @import url("bootstrap.min.css");
 
 #page{
-    font-family: "Segoe Script", serif;
     background: url("../images/background.jpg") no-repeat;
     background-size: cover;
 }
