@@ -1,8 +1,7 @@
 package com.dao;
 
 import com.dao.exceptions.DaoException;
-import com.model.users.SelectedUser;
-import com.model.users.UnauthorizedUser;
+import com.model.user.state.SelectedUser;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,7 +20,7 @@ public class LogInDaoTests {
         SelectedUser actual = underTest.findUser(valueToTest);
 
         //assert
-        SelectedUser expected = new SelectedUser(1, "Anastasia", "123456");
+        SelectedUser expected = new SelectedUser(1, "Anastasia", "qwerty");
         Assert.assertEquals(expected, actual);
 
     }

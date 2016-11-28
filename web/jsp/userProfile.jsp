@@ -1,9 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%
-    HttpSession userSession = request.getSession(false);
-    if(userSession == null || userSession.getAttribute("user") == null){
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-        dispatcher.forward(request, response);
+    if(session == null || session.getAttribute("nickname") == null){
+        response.sendRedirect("/index.jsp");
     }
 %>
 <html>
@@ -36,11 +35,11 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nickname">Username<b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nickname">${sessionScope.nickname}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Edit profile</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">Log out</a></li>
+                            <li><a href="/WriteYourBest.do?action=LOGOUT">Log out</a></li>
                         </ul>
                     </li>
                 </ul>

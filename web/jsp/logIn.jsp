@@ -1,10 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    HttpSession userSession = request.getSession(false);
-    if(userSession != null && userSession.getAttribute("user") != null){
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/userProfile.jsp");
-        dispatcher.forward(request, response);
+    if(session != null && session.getAttribute("nickname") != null){
+        response.sendRedirect("/jsp/userProfile.jsp");
     }
 %>
 <html>
@@ -30,8 +28,8 @@
                                 $.ajax(
                                         {
                                             type: 'POST',
-                                            data: {nickname: nickname, password: password},
-                                            url: '../LogIn.do',
+                                            data: {action:"LOGIN", nickname: nickname, password: password},
+                                            url: '/WriteYourBest.do',
                                             success: function (result) {
                                                 if(result != ""){
                                                     $('#errorMessage').html(result);

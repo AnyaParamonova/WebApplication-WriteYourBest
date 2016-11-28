@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * Created by Anastasia_Paramonova on 22.11.2016.
  */
 
-public class MySQLConnector implements IConnector{
+public class MySQLConnector implements Connector {
 
     private static DataSource connectionPool;
     private static boolean connectorIsOpen;

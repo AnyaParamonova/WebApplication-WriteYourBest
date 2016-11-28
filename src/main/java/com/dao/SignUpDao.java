@@ -1,10 +1,10 @@
 package com.dao;
 
-import com.dao.connectors.IConnector;
+import com.dao.connectors.Connector;
 import com.dao.connectors.MySQLConnector;
 import com.dao.exceptions.DaoException;
-import com.model.users.AuthorizedUser;
-import com.model.users.UnregisteredUser;
+import com.model.user.state.AuthorizedUser;
+import com.model.user.state.UnregisteredUser;
 
 import java.sql.*;
 
@@ -22,7 +22,7 @@ public class SignUpDao extends Dao{
         this(new MySQLConnector());
     }
 
-    public SignUpDao(IConnector connector){
+    public SignUpDao(Connector connector){
         super(connector);
     }
 
@@ -61,16 +61,16 @@ public class SignUpDao extends Dao{
             insertUserQuery.setString(3, user.getPassword());
 
             if(insertUserQuery.executeUpdate() == 0)
-                throw new DaoException("SignUpDao: users wasn't insert");
+                throw new DaoException("SignUpDao: user wasn't insert");
 
             generatedKeys =  insertUserQuery.getGeneratedKeys();
             if(generatedKeys.next())
                 return generatedKeys.getLong(1);
 
-            throw new DaoException("SignUpDao: Can't get users id from result set");
+            throw new DaoException("SignUpDao: Can't get user id from result set");
         }
         catch (SQLException e){
-            throw new DaoException("SignUpDao: Error add users to database", e);
+            throw new DaoException("SignUpDao: Error add user to database", e);
         }
         finally {
             closeResultSet(generatedKeys);

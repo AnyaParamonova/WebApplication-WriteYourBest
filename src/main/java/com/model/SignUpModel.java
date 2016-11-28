@@ -3,8 +3,8 @@ package com.model;
 import com.dao.SignUpDao;
 import com.dao.exceptions.DaoException;
 import com.model.errors.ErrorList;
-import com.model.users.AuthorizedUser;
-import com.model.users.UnregisteredUser;
+import com.model.user.state.AuthorizedUser;
+import com.model.user.state.UnregisteredUser;
 
 /**
  * Created by Anastasia_Paramonova on 23.11.2016.

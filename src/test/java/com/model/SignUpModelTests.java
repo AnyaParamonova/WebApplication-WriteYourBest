@@ -1,9 +1,8 @@
 package com.model;
 
 import com.model.errors.ErrorList;
-import com.model.users.AuthorizedUser;
-import com.model.users.UnauthorizedUser;
-import com.model.users.UnregisteredUser;
+import com.model.user.state.AuthorizedUser;
+import com.model.user.state.UnregisteredUser;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

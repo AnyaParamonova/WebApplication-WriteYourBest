@@ -1,4 +1,4 @@
-package com.model.users;
+package com.model.user.state;
 
 /**
  * Created by Anastasia_Paramonova on 25.11.2016.

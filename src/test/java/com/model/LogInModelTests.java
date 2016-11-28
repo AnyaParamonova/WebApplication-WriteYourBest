@@ -1,7 +1,7 @@
 package com.model;
 
-import com.model.users.AuthorizedUser;
-import com.model.users.UnauthorizedUser;
+import com.model.user.state.AuthorizedUser;
+import com.model.user.state.UnauthorizedUser;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,10 +1,9 @@
 package com.dao;
 
-import com.dao.connectors.IConnector;
+import com.dao.connectors.Connector;
 import com.dao.connectors.MySQLConnector;
 import com.dao.exceptions.DaoException;
-import com.model.users.SelectedUser;
-import com.model.users.UnauthorizedUser;
+import com.model.user.state.SelectedUser;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,12 +17,11 @@ public class LogInDao extends Dao{
 
     private static String SELECT_USER_QUERY = "SELECT ID, NICKNAME, PASSWORD FROM ACCOUNTS WHERE NICKNAME=?";
 
-
     public LogInDao(){
         this(new MySQLConnector());
     }
 
-    public LogInDao(IConnector connector){
+    public LogInDao(Connector connector){
         super(connector);
     }
 

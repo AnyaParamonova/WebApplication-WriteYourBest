@@ -1,6 +1,6 @@
 package com.dao;
 
-import com.dao.connectors.IConnector;
+import com.dao.connectors.Connector;
 import com.dao.exceptions.DaoException;
 
 import java.sql.Connection;
@@ -13,9 +13,9 @@ import java.sql.SQLException;
  */
 public abstract class Dao {
 
-    IConnector connector;
+    Connector connector;
 
-    protected Dao(IConnector connector){
+    protected Dao(Connector connector){
         this.connector = connector;
     }
 

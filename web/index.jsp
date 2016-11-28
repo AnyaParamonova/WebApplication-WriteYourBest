@@ -1,10 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    HttpSession userSession = request.getSession(false);
-    if(userSession != null && userSession.getAttribute("user") != null){
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/userProfile.jsp");
-            dispatcher.forward(request, response);
+    if(session != null && session.getAttribute("nickname") != null){
+      response.sendRedirect("/jsp/userProfile.jsp");
     }
 %>
 <html>
@@ -32,8 +30,8 @@
                                $.ajax(
                                        {
                                            type: 'POST',
-                                           data: {nickname: nickname, email: email, password: password, passwordRep: passwordAgain},
-                                           url: 'SignUp.do',
+                                           data: {action:"SIGNUP", nickname: nickname, email: email, password: password, passwordRep: passwordAgain},
+                                           url: 'WriteYourBest.do',
                                            success: function (result) {
                                              if(result != ""){
                                                $('#errorMessage').html(result);
@@ -76,7 +74,7 @@
     </div>
   </nav>
   <div id="getStartedForm">
-    <h1 class="text-center">BECOME A BEST WRITER</h1>
+    <h1 class="text-center">BECOME THE BEST WRITER</h1>
     <h3 class="text-center"><i>Write every day</i></h3>
     <button id="getStartedButton" class="btn-lg btn-default text-center center-block">Get started</button>
   </div>

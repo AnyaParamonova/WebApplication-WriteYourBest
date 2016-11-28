@@ -3,9 +3,9 @@ package com.model;
 import com.dao.LogInDao;
 import com.dao.exceptions.DaoException;
 import com.model.errors.ErrorList;
-import com.model.users.AuthorizedUser;
-import com.model.users.SelectedUser;
-import com.model.users.UnauthorizedUser;
+import com.model.user.state.AuthorizedUser;
+import com.model.user.state.SelectedUser;
+import com.model.user.state.UnauthorizedUser;
 
 /**
  * Created by Anastasia_Paramonova on 25.11.2016.

@@ -1,8 +1,8 @@
 package com.dao;
 
 import com.dao.exceptions.DaoException;
-import com.model.users.AuthorizedUser;
-import com.model.users.UnregisteredUser;
+import com.model.user.state.AuthorizedUser;
+import com.model.user.state.UnregisteredUser;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -18,7 +18,7 @@ public class SignUpDaoTests {
     public void signUp_WhenUserNotExists_ShouldReturnRegisteredUserObject() throws DaoException {
         //arrange
         SignUpDao underTest = new SignUpDao();
-        UnregisteredUser valueToTest = new UnregisteredUser("Antonio", "antonio@yandex.by", "qwerty");
+        UnregisteredUser valueToTest = new UnregisteredUser("Anastasia", "anya9182561@gmail.com", "qwerty");
 
         //act
         AuthorizedUser actual = underTest.signUpNewUser(valueToTest);
@@ -92,7 +92,7 @@ public class SignUpDaoTests {
     public void checkEmailBusy_WhenEmailBusy_ShouldReturnTrue() throws DaoException{
         //arrange
         SignUpDao underTest = new SignUpDao();
-        String valueToTest = "anya9182561@gmail.com";
+        String valueToTest = "anastasia@gmail.com";
 
         //act
         boolean result = underTest.emailIsBusy(valueToTest);
