@@ -1,5 +1,6 @@
 package com.model;
 
+import com.model.action.LogInModel;
 import com.model.user.state.AuthorizedUser;
 import com.model.user.state.UnauthorizedUser;
 import org.junit.Assert;

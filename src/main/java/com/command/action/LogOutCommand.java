@@ -1,4 +1,4 @@
-package com.command.commands;
+package com.command.action;
 
 import com.command.factory.ActionCommand;
 

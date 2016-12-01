@@ -1,8 +1,8 @@
-package com.model;
+package com.model.action;
 
-import com.dao.SignUpDao;
-import com.dao.exceptions.DaoException;
-import com.model.errors.ErrorList;
+import com.dao.action.SignUpDao;
+import com.dao.exception.DaoException;
+import com.model.error.ErrorList;
 import com.model.user.state.AuthorizedUser;
 import com.model.user.state.UnregisteredUser;
 
@@ -26,17 +26,17 @@ public class SignUpModel {
 
     public AuthorizedUser performSingUp(){
         try{
-            if(signUpDao.nicknameIsBusy(unregisteredUser.getNickname())){
+            if(signUpDao.nicknameIsOccupied(unregisteredUser.getNickname())){
                 errorMessage = ErrorList.BUSY_NICKNAME_ERROR;
                 return null;
             }
 
-            if(signUpDao.emailIsBusy(unregisteredUser.getEmail())){
+            if(signUpDao.emailIsOccupied(unregisteredUser.getEmail())){
                 errorMessage = ErrorList.BUSY_EMAIL_ERROR;
                 return null;
             }
 
-            return signUpDao.signUpNewUser(unregisteredUser);
+            return signUpDao.signUpUser(unregisteredUser);
         }
         catch (DaoException e){
             System.out.println(e.toString());

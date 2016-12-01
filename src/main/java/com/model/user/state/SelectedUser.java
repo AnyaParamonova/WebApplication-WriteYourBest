@@ -5,11 +5,11 @@ package com.model.user.state;
  */
 public class SelectedUser {
 
-    private long id;
+    private int id;
     private String nickname;
     private String password;
 
-    public SelectedUser(long id, String nickname, String password){
+    public SelectedUser(int id, String nickname, String password){
 
         if(nickname == null)
             throw new NullPointerException("nickname");
@@ -29,7 +29,7 @@ public class SelectedUser {
         return password;
     }
 
-    public long getId(){
+    public int getId(){
         return id;
     }
 

@@ -1,8 +1,8 @@
-package com.dao;
+package com.dao.action;
 
-import com.dao.connectors.Connector;
-import com.dao.connectors.MySQLConnector;
-import com.dao.exceptions.DaoException;
+import com.dao.connector.Connector;
+import com.dao.connector.MySQLConnector;
+import com.dao.exception.DaoException;
 import com.model.user.state.AuthorizedUser;
 import com.model.user.state.UnregisteredUser;
 
@@ -12,11 +12,11 @@ import java.sql.*;
  * Created by Anastasia_Paramonova on 22.11.2016.
  */
 
-public class SignUpDao extends Dao{
+public class SignUpDao extends Dao {
 
-    private static String INSERT_USER_QUERY = "INSERT INTO ACCOUNTS(NICKNAME, EMAIL, PASSWORD, TYPE, CREATION_DATE) VALUES (?, ?, ?, \"regular\", current_timestamp())";
-    private static String SELECT_USER_NICKNAME = "SELECT ID, NICKNAME FROM ACCOUNTS WHERE NICKNAME = ?";
-    private static String SELECT_USER_EMAIL = "SELECT ID, EMAIL FROM ACCOUNTS WHERE EMAIL = ?";
+    private static String INSERT_USER_QUERY = "INSERT INTO ACCOUNTS(NICKNAME, EMAIL, PASSWORD, TYPE) VALUES (?, ?, ?, \"regular\")";
+    private static String SELECT_USER_BY_NICKNAME = "SELECT ID, NICKNAME FROM ACCOUNTS WHERE NICKNAME = ?";
+    private static String SELECT_USER_BY_EMAIL = "SELECT ID, EMAIL FROM ACCOUNTS WHERE EMAIL = ?";
 
     public SignUpDao(){
         this(new MySQLConnector());
@@ -26,29 +26,29 @@ public class SignUpDao extends Dao{
         super(connector);
     }
 
-    public AuthorizedUser signUpNewUser(UnregisteredUser user) throws DaoException {
+    public AuthorizedUser signUpUser(UnregisteredUser user) throws DaoException {
 
         if(user == null)
             throw new DaoException("SignUpDao: Unregistered user parameter is null");
 
-        long addedUserId = addUserToDatabase(user);
+        int addedUserId = insertUserIntoDatabase(user);
         return new AuthorizedUser(addedUserId, user.getNickname());
     }
 
-    public boolean nicknameIsBusy(String nickname) throws DaoException{
+    public boolean nicknameIsOccupied(String nickname) throws DaoException{
 
         if(nickname == null)
             throw new NullPointerException("nickname");
         return nicknameExistsInDatabase(nickname);
     }
 
-    public boolean emailIsBusy(String email) throws DaoException{
+    public boolean emailIsOccupied(String email) throws DaoException{
         if(email == null)
             throw new NullPointerException("nickname");
         return emailExistsInDatabase(email);
     }
 
-    private long addUserToDatabase(UnregisteredUser user) throws DaoException {
+    private int insertUserIntoDatabase(UnregisteredUser user) throws DaoException {
 
         Connection connection = null;
         PreparedStatement insertUserQuery = null;
@@ -65,7 +65,7 @@ public class SignUpDao extends Dao{
 
             generatedKeys =  insertUserQuery.getGeneratedKeys();
             if(generatedKeys.next())
-                return generatedKeys.getLong(1);
+                return generatedKeys.getInt(1);
 
             throw new DaoException("SignUpDao: Can't get user id from result set");
         }
@@ -80,15 +80,15 @@ public class SignUpDao extends Dao{
     }
 
     private boolean nicknameExistsInDatabase(String nickname) throws DaoException {
-        return checkItemIsBusy(SELECT_USER_NICKNAME, nickname, "SignUpDao: Error checking nickname");
+        return checkItemIsOccupied(SELECT_USER_BY_NICKNAME, nickname, "SignUpDao: Error checking nickname");
     }
 
 
     private boolean emailExistsInDatabase(String email) throws DaoException {
-        return checkItemIsBusy(SELECT_USER_EMAIL, email, "SignUpDao: Error checking email");
+        return checkItemIsOccupied(SELECT_USER_BY_EMAIL, email, "SignUpDao: Error checking email");
     }
 
-    private boolean checkItemIsBusy(String selectQuery, String parameter, String errorMessage) throws DaoException{
+    private boolean checkItemIsOccupied(String selectQuery, String parameter, String errorMessage) throws DaoException{
         Connection connection = null;
         PreparedStatement selectUserQuery = null;
         ResultSet selectResult = null;
@@ -109,7 +109,4 @@ public class SignUpDao extends Dao{
             closeConnection(connection);
         }
     }
-
-
-
 }

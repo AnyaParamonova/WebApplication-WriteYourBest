@@ -1,4 +1,4 @@
-package com.model.errors;
+package com.model.error;
 
 /**
  * Created by Anastasia_Paramonova on 24.11.2016.

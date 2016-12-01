@@ -1,6 +1,9 @@
 package com.dao;
 
-import com.dao.exceptions.DaoException;
+import com.dao.action.LogInDao;
+import com.dao.exception.DaoException;
+import com.model.encrypt.Encrypt;
+import com.model.encrypt.HashEncrypt;
 import com.model.user.state.SelectedUser;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,12 +18,13 @@ public class LogInDaoTests {
         //arrange
         LogInDao underTest = new LogInDao();
         String valueToTest = "Anastasia";
+        Encrypt encrypt = new HashEncrypt();
 
         //act
         SelectedUser actual = underTest.findUser(valueToTest);
 
         //assert
-        SelectedUser expected = new SelectedUser(1, "Anastasia", "qwerty");
+        SelectedUser expected = new SelectedUser(1, "Anastasia", encrypt.encryptString("qwerty"));
         Assert.assertEquals(expected, actual);
 
     }
@@ -35,8 +39,7 @@ public class LogInDaoTests {
         SelectedUser actual = underTest.findUser(valueToTest);
 
         //assert
-        SelectedUser expected = null;
-        Assert.assertEquals(expected, actual);
+        Assert.assertNull(actual);
 
     }
 

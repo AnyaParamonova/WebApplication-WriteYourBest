@@ -5,10 +5,10 @@ package com.model.user.state;
  */
 public class AuthorizedUser {
 
-    private long id;
+    private int id;
     private String nickname;
 
-    public AuthorizedUser(long id, String nickname){
+    public AuthorizedUser(int id, String nickname){
 
         if(nickname == null)
             throw new NullPointerException("nickname");
@@ -17,7 +17,7 @@ public class AuthorizedUser {
         this.nickname = nickname;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 

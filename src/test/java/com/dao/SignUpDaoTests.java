@@ -1,6 +1,9 @@
 package com.dao;
 
-import com.dao.exceptions.DaoException;
+import com.dao.action.SignUpDao;
+import com.dao.exception.DaoException;
+import com.model.encrypt.Encrypt;
+import com.model.encrypt.HashEncrypt;
 import com.model.user.state.AuthorizedUser;
 import com.model.user.state.UnregisteredUser;
 import org.junit.Assert;
@@ -18,13 +21,14 @@ public class SignUpDaoTests {
     public void signUp_WhenUserNotExists_ShouldReturnRegisteredUserObject() throws DaoException {
         //arrange
         SignUpDao underTest = new SignUpDao();
-        UnregisteredUser valueToTest = new UnregisteredUser("Anastasia", "anya9182561@gmail.com", "qwerty");
+        Encrypt encrypt = new HashEncrypt();
+        UnregisteredUser valueToTest = new UnregisteredUser("Roman", "rakkatakka@gmail.com", encrypt.encryptString("123456"));
 
         //act
-        AuthorizedUser actual = underTest.signUpNewUser(valueToTest);
+        AuthorizedUser actual = underTest.signUpUser(valueToTest);
 
         //assert
-        AuthorizedUser expected = new AuthorizedUser(2, valueToTest.getNickname());
+        AuthorizedUser expected = new AuthorizedUser(3, valueToTest.getNickname());
 
         Assert.assertEquals(expected, actual);
     }
@@ -33,10 +37,11 @@ public class SignUpDaoTests {
     public void signUp_WhenUserExists_ShouldThrowException() throws DaoException {
         //arrange
         SignUpDao underTest = new SignUpDao();
-        UnregisteredUser valueToTest = new UnregisteredUser("Anastasia", "anastasia@gmail.com", "qwerty");
+        Encrypt encrypt = new HashEncrypt();
+        UnregisteredUser valueToTest = new UnregisteredUser("Anastasia", "anastasia@gmail.com", encrypt.encryptString("qwerty"));
 
         //act
-        AuthorizedUser result = underTest.signUpNewUser(valueToTest);
+        AuthorizedUser result = underTest.signUpUser(valueToTest);
     }
 
     @Test(expected = DaoException.class)
@@ -46,7 +51,7 @@ public class SignUpDaoTests {
         UnregisteredUser valueToTest = null;
 
         //act
-        AuthorizedUser result = underTest.signUpNewUser(valueToTest);
+        AuthorizedUser result = underTest.signUpUser(valueToTest);
     }
 
     @Test
@@ -56,7 +61,7 @@ public class SignUpDaoTests {
         String valueToTest = "Anastasia";
 
         //act
-        boolean result = underTest.nicknameIsBusy(valueToTest);
+        boolean result = underTest.nicknameIsOccupied(valueToTest);
 
         //assert
         Assert.assertTrue(result);
@@ -69,7 +74,7 @@ public class SignUpDaoTests {
         String valueToTest = "Avtandil";
 
         //act
-        boolean result = underTest.nicknameIsBusy(valueToTest);
+        boolean result = underTest.nicknameIsOccupied(valueToTest);
 
         //assert
         Assert.assertFalse(result);
@@ -82,7 +87,7 @@ public class SignUpDaoTests {
         String valueToTest = null;
 
         //act
-        boolean result = underTest.nicknameIsBusy(valueToTest);
+        boolean result = underTest.nicknameIsOccupied(valueToTest);
 
         //assert
         Assert.assertFalse(result);
@@ -95,7 +100,7 @@ public class SignUpDaoTests {
         String valueToTest = "anastasia@gmail.com";
 
         //act
-        boolean result = underTest.emailIsBusy(valueToTest);
+        boolean result = underTest.emailIsOccupied(valueToTest);
 
         //assert
         Assert.assertTrue(result);
@@ -108,7 +113,7 @@ public class SignUpDaoTests {
         String valueToTest = "paramanastasia@gmail.com";
 
         //act
-        boolean result = underTest.emailIsBusy(valueToTest);
+        boolean result = underTest.emailIsOccupied(valueToTest);
 
         //assert
         Assert.assertFalse(result);
@@ -121,7 +126,7 @@ public class SignUpDaoTests {
         String valueToTest = null;
 
         //act
-        boolean result = underTest.emailIsBusy(valueToTest);
+        boolean result = underTest.emailIsOccupied(valueToTest);
 
         //assert
         Assert.assertFalse(result);

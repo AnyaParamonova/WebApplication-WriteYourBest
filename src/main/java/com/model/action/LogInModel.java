@@ -1,8 +1,8 @@
-package com.model;
+package com.model.action;
 
-import com.dao.LogInDao;
-import com.dao.exceptions.DaoException;
-import com.model.errors.ErrorList;
+import com.dao.action.LogInDao;
+import com.dao.exception.DaoException;
+import com.model.error.ErrorList;
 import com.model.user.state.AuthorizedUser;
 import com.model.user.state.SelectedUser;
 import com.model.user.state.UnauthorizedUser;

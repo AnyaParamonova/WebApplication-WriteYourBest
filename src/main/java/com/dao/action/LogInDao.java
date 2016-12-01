@@ -1,8 +1,8 @@
-package com.dao;
+package com.dao.action;
 
-import com.dao.connectors.Connector;
-import com.dao.connectors.MySQLConnector;
-import com.dao.exceptions.DaoException;
+import com.dao.connector.Connector;
+import com.dao.connector.MySQLConnector;
+import com.dao.exception.DaoException;
 import com.model.user.state.SelectedUser;
 
 import java.sql.Connection;
@@ -13,9 +13,9 @@ import java.sql.SQLException;
 /**
  * Created by Anastasia_Paramonova on 23.11.2016.
  */
-public class LogInDao extends Dao{
+public class LogInDao extends Dao {
 
-    private static String SELECT_USER_QUERY = "SELECT ID, NICKNAME, PASSWORD FROM ACCOUNTS WHERE NICKNAME=?";
+    private static String SELECT_USER_BY_NICKNAME = "SELECT ID, NICKNAME, PASSWORD FROM ACCOUNTS WHERE NICKNAME=?";
 
     public LogInDao(){
         this(new MySQLConnector());
@@ -29,21 +29,21 @@ public class LogInDao extends Dao{
         if(nickname == null)
             throw new DaoException("LogInDao: Unregistered user parameter is null");
 
-        return getUserFromDatabase(nickname);
+        return selectUserFromDatabase(nickname);
     }
 
-    private SelectedUser getUserFromDatabase(String nickname) throws DaoException {
+    private SelectedUser selectUserFromDatabase(String nickname) throws DaoException {
         Connection connection = null;
         PreparedStatement selectUserQuery = null;
         ResultSet selectResult = null;
         try{
             connection = connector.getConnection();
-            selectUserQuery = connection.prepareStatement(SELECT_USER_QUERY);
+            selectUserQuery = connection.prepareStatement(SELECT_USER_BY_NICKNAME);
             selectUserQuery.setString(1, nickname);
 
             selectResult = selectUserQuery.executeQuery();
             if(selectResult.next()){
-                long id = selectResult.getLong("id");
+                int id = selectResult.getInt("id");
                 String name = selectResult.getString("nickname");
                 String password = selectResult.getString("password");
 

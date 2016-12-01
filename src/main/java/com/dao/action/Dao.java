@@ -1,7 +1,7 @@
-package com.dao;
+package com.dao.action;
 
-import com.dao.connectors.Connector;
-import com.dao.exceptions.DaoException;
+import com.dao.connector.Connector;
+import com.dao.exception.DaoException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,15 +11,15 @@ import java.sql.SQLException;
 /**
  * Created by Anastasia_Paramonova on 23.11.2016.
  */
-public abstract class Dao {
+abstract class Dao {
 
     Connector connector;
 
-    protected Dao(Connector connector){
+    Dao(Connector connector){
         this.connector = connector;
     }
 
-    protected void closeConnection(Connection connection) throws DaoException {
+    void closeConnection(Connection connection) throws DaoException {
         if(connection != null){
             try {
                 connection.close();
@@ -29,7 +29,7 @@ public abstract class Dao {
         }
     }
 
-    protected void closeStatement(PreparedStatement statement) throws DaoException{
+    void closeStatement(PreparedStatement statement) throws DaoException{
         if(statement != null){
             try {
                 statement.close();
@@ -39,7 +39,7 @@ public abstract class Dao {
         }
     }
 
-    protected void closeResultSet(ResultSet resultSet) throws DaoException{
+    void closeResultSet(ResultSet resultSet) throws DaoException{
         if(resultSet != null){
             try {
                 resultSet.close();

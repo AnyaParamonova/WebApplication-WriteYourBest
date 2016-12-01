@@ -2,7 +2,8 @@
 
 <%
     if(session != null && session.getAttribute("nickname") != null){
-        response.sendRedirect("/jsp/userProfile.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WriteYourBest.do?action=CREATEWALL");
+        dispatcher.forward(request, response);
     }
 %>
 <html>
@@ -11,67 +12,19 @@
     <meta charset="utf-8">
     <meta lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/style.common.css" rel="stylesheet">
-    <link href="../css/style.logInPage.css" rel="stylesheet">
-    <link rel="icon" type="img/ico" href="../images/logo.ico">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.common.css" rel="stylesheet">
+    <link href="/css/style.logInPage.css" rel="stylesheet">
+    <link rel="icon" type="img/ico" href="/image/logo.ico">
 
-    <script src="../js/jquery-3.1.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(
-                function () {
-                    $('#logInSubmit').click(
-                            function () {
-                                var nickname = $('#nickname').val();
-                                var password = $('#password').val();
-                                $.ajax(
-                                        {
-                                            type: 'POST',
-                                            data: {action:"LOGIN", nickname: nickname, password: password},
-                                            url: '/WriteYourBest.do',
-                                            success: function (result) {
-                                                if(result != ""){
-                                                    $('#errorMessage').html(result);
-                                                }
-                                                else {
-                                                    window.location.href = '/jsp/userProfile.jsp';
-                                                }
-                                            }
-                                        }
-                                );
-                            }
-                    );
-                }
-        );
-    </script>
-
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/logInRequest.js"></script>
 </head>
-<body id="page">
+<body style='background: url("../image/background.jpg") no-repeat; background-size: cover;'>
 
 <div id="topBanner">
-    <nav class="navbar navbar-default" id="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">
-                    <img src="../images/icon.png" alt="icon" class="img-responsive" id="logo">
-                </a>
-                <h4 class="navbar-text">Write your best</h4>
-            </div>
-
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="logIn.jsp">Log In</a></li>
-                    <li><a href="../index.jsp">Sign Up</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <%@include file="/html/navbarBeforeAuthorization.html" %>
 </div>
 <div id="space"></div>
 <div id="formContainer">
@@ -86,7 +39,7 @@
         </div>
         <div class="form-group">
             <label class="control-label" for="password">Password</label>
-            <input id="password" type="password" maxlength="30" class="form-control" placeholder="at least 6 characters">
+            <input id="password" type="password" maxlength="30" class="form-control">
         </div>
         <br>
         <div class="form-group">
@@ -94,25 +47,10 @@
         </div>
         <br>
         <p class="text-center"><a href="#">Forgot your password?</a></p>
-        <p class="text-center">Don't have an account? <a href="../index.jsp">Sign up</a></p>
+        <p class="text-center">Don't have an account? <a href="/index.jsp">Sign up</a></p>
     </form>
 </div>
 
-
-<nav class="navbar-fixed-bottom" id="footer">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-left">
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="logIn.jsp">Login</a></li>
-                <li><a href="../index.jsp">Signup</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>Paramonova Anastasia</li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<%@include file="/html/footerBeforeAuthorization.html"%>
 </body>
 </html>

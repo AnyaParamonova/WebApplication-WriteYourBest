@@ -5,6 +5,8 @@ package com.model.encrypt;
  */
 public class HashEncrypt implements Encrypt {
     public String encryptString(String value) {
-        return String.valueOf(value.hashCode());
+        int hash = 1;
+        hash = hash * 31 + value.hashCode();
+        return String.valueOf(hash);
     }
 }

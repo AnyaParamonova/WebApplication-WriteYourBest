@@ -1,10 +1,5 @@
 @import url("bootstrap.min.css");
 
-#page{
-    background: url("../images/background.jpg") no-repeat;
-    background-size: cover;
-}
-
 #logo{
     height: 100%;
 }

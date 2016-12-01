@@ -1,6 +1,7 @@
 package com.model;
 
-import com.model.errors.ErrorList;
+import com.model.action.SignUpModel;
+import com.model.error.ErrorList;
 import com.model.user.state.AuthorizedUser;
 import com.model.user.state.UnregisteredUser;
 import org.junit.Assert;

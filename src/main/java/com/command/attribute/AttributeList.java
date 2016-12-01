@@ -9,4 +9,7 @@ public class AttributeList {
     public static String PASSWORD_ATTRIBUTE = "password";
     public static String REPPASSWORD_ATTRIBUTE = "passwordRep";
     public static String ID_ATTRIBUTE = "id";
+    public static String OFFSET_ATTRIBUTE = "offset";
+    public static String THEME_ATTRIBUTE = "theme";
+    public static String BODY_ATTRIBUTE = "body";
 }
