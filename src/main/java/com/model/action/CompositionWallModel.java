@@ -13,11 +13,11 @@ import java.util.ArrayList;
  */
 public class CompositionWallModel {
 
-    private static int PORTION_SIZE = 5;
-    private String COMPOSITION_TEMPLATE =
-            "<form action='all_messages.php' method='post' class='row'>\n" +
+    private static int DEFAULT_PORTION_SIZE = 5;
+    private static String COMPOSITION_TEMPLATE =
+            "<form id='comp_$ID' action='all_messages.php' method='post' class='row'>\n" +
                     "<div class='form-group' style='border: 2px solid #2b542c; padding: 20px; border-radius: 5px'>\n" +
-                    "<button name='comp_$ID' class='close' type='submit'>&times</button>\n" +
+                    "<button value='$ID' class='close' type='button'>&times</button>\n" +
                     "<h3 style='color: #2b542c'>$THEME</h3>\n" +
                     "<hr>\n" +
                     "<h5 style='color: #2b542c'>Creation date: $DATE</h5>\n" +
@@ -30,7 +30,7 @@ public class CompositionWallModel {
     public CompositionWallModel(AuthorizedUser user){
 
         if(user == null)
-            throw  new NullPointerException("user");
+            throw new NullPointerException("user");
 
         this.user = user;
     }
@@ -48,9 +48,13 @@ public class CompositionWallModel {
     }
 
     public ArrayList<Composition> getNextCompositionPortion(int offset){
+            return getNextCompositionPortion(offset, DEFAULT_PORTION_SIZE);
+    }
+
+    public ArrayList<Composition> getNextCompositionPortion(int offset, int portionSize){
         try {
             CompositionDao dao = new CompositionDao();
-            return dao.getCompositionList(user.getId(), offset, PORTION_SIZE);
+            return dao.getCompositionList(user.getId(), offset, portionSize);
         } catch (DaoException e) {
             System.out.println(e.getMessage());
             return new ArrayList<Composition>();
@@ -80,6 +84,15 @@ public class CompositionWallModel {
         CompositionDao dao = new CompositionDao();
         try {
             dao.saveComposition(user.getId(), body);
+        } catch (DaoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void deleteComposition(int compositionId){
+        CompositionDao dao = new CompositionDao();
+        try {
+            dao.deleteCompostion(compositionId);
         } catch (DaoException e) {
             System.out.println(e.getMessage());
         }

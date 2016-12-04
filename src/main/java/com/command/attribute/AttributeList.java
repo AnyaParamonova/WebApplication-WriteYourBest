@@ -11,5 +11,7 @@ public class AttributeList {
     public static String ID_ATTRIBUTE = "id";
     public static String OFFSET_ATTRIBUTE = "offset";
     public static String THEME_ATTRIBUTE = "theme";
+    public static String PORTION_SIZE  = "size";
+    public static String COMPOSITION_ID = "compositionId";
     public static String BODY_ATTRIBUTE = "body";
 }

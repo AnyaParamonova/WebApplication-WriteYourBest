@@ -29,7 +29,7 @@ public enum CommandEnum{
     },
     LOADCOMPOSITIONS{
         {
-            this.command = new UpdateWallCommand();
+            this.command = new LoadCompositionsCommand();
         }
     },
     LOADCREATEPAGE{
@@ -40,6 +40,11 @@ public enum CommandEnum{
     SAVECOMPOSITION{
         {
             this.command = new SaveCompositionCommand();
+        }
+    },
+    DELETECOMPOSITION{
+        {
+            this.command = new DeleteCompositionCommand();
         }
     };
 

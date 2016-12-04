@@ -17,6 +17,7 @@ public class CompositionDao extends Dao {
 
     private static String INSERT_COMPOSITION_QUERY = "INSERT INTO COMPOSITIONS(AUTHOR_ID, THEME_ID, BODY) VALUES(?, (SELECT ID FROM THEMES ORDER BY CREATION_DATE DESC LIMIT 1), ?)";
     private static String SELECT_COMPOSITION_LIST = "SELECT c.ID AS id, t.BODY AS theme , c.BODY as composition, c.CREATION_DATE as creation_date FROM COMPOSITIONS c INNER JOIN themes t ON c.THEME_ID = t.ID WHERE c.AUTHOR_ID = ? ORDER BY c.CREATION_DATE DESC LIMIT ?, ?";
+    private static String DELETE_COMPOSITION_BY_ID = "DELETE FROM compositions WHERE ID = ?";
 
     public CompositionDao(){
         super(new MySQLConnector());
@@ -44,22 +45,26 @@ public class CompositionDao extends Dao {
         return insertCompositionIntoDatabase(authorId, body);
     }
 
+    public void deleteCompostion(int compositionId) throws DaoException {
+        removeCompostitionFromDatabase(compositionId);
+    }
+
     private boolean insertCompositionIntoDatabase(int authorId, String body) throws DaoException {
         Connection connection = null;
-        PreparedStatement insertUserQuery = null;
+        PreparedStatement insertCompositionQuery = null;
         try{
             connection = connector.getConnection();
-            insertUserQuery = connection.prepareStatement(INSERT_COMPOSITION_QUERY);
-            insertUserQuery.setInt(1, authorId);
-            insertUserQuery.setString(2, body);
+            insertCompositionQuery = connection.prepareStatement(INSERT_COMPOSITION_QUERY);
+            insertCompositionQuery.setInt(1, authorId);
+            insertCompositionQuery.setString(2, body);
 
-            return (insertUserQuery.executeUpdate() != 0);
+            return (insertCompositionQuery.executeUpdate() != 0);
         }
         catch (SQLException e){
-            throw new DaoException("ThemeDao: Error add composition to database", e);
+            throw new DaoException("CompositionDao: Error add composition to database", e);
         }
         finally {
-            closeStatement(insertUserQuery);
+            closeStatement(insertCompositionQuery);
             closeConnection(connection);
         }
     }
@@ -90,11 +95,30 @@ public class CompositionDao extends Dao {
             return compositions;
         }
         catch (SQLException e){
-            throw new DaoException("ThemeDao: Error select composition from database", e);
+            throw new DaoException("CompositionDao: Error select composition from database", e);
         }
         finally {
             closeResultSet(result);
             closeStatement(selectListQuery);
+            closeConnection(connection);
+        }
+    }
+
+    private void removeCompostitionFromDatabase(int compositionId) throws DaoException {
+        Connection connection = null;
+        PreparedStatement deleteCompositionQuery = null;
+        try{
+            connection = connector.getConnection();
+            deleteCompositionQuery = connection.prepareStatement(DELETE_COMPOSITION_BY_ID);
+            deleteCompositionQuery.setInt(1, compositionId);
+
+            deleteCompositionQuery.executeUpdate();
+        }
+        catch (SQLException e){
+            throw new DaoException("CompositionDao: Error delete composition from database", e);
+        }
+        finally {
+            closeStatement(deleteCompositionQuery);
             closeConnection(connection);
         }
     }
