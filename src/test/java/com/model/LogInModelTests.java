@@ -21,7 +21,7 @@ public class LogInModelTests {
         AuthorizedUser actual = underTest.performLogIn();
 
         //assert
-        AuthorizedUser expected = new AuthorizedUser(1, "Anastasia");
+        AuthorizedUser expected = new AuthorizedUser(1, "Anastasia", "anya9182561@gmail.com", "regular");
 
         Assert.assertEquals(expected, actual);
     }

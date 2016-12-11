@@ -1,6 +1,7 @@
 package com.command.action;
 
 import com.command.attribute.AttributeList;
+import com.command.attribute.AttributeHandler;
 import com.command.factory.ActionCommand;
 import com.model.action.CompositionWallModel;
 import com.model.composition.Composition;
@@ -22,14 +23,13 @@ public class LoadCompositionsCommand implements ActionCommand{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         HttpSession session = request.getSession();
-        String userNickname = (String)session.getAttribute(AttributeList.NICKNAME_ATTRIBUTE);
-        int userId = (Integer)session.getAttribute(AttributeList.ID_ATTRIBUTE);
+        AuthorizedUser user = AttributeHandler.readUserAttribute(session);
+
         int offset = session.getAttribute(AttributeList.OFFSET_ATTRIBUTE) == null
                 ? 0
                 : (Integer)session.getAttribute(AttributeList.OFFSET_ATTRIBUTE);
         int portionSize = Integer.parseInt(request.getParameter(AttributeList.PORTION_SIZE));
 
-        AuthorizedUser user = new AuthorizedUser(userId, userNickname);
         CompositionWallModel model = new CompositionWallModel(user);
         ArrayList<Composition> compositions = model.getNextCompositionPortion(offset, portionSize);
         offset += compositions.size();

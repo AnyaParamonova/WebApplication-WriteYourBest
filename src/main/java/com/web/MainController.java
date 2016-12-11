@@ -3,6 +3,7 @@ package com.web;
 import com.command.factory.ActionCommand;
 import com.command.factory.ActionFactory;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,8 +28,14 @@ public class MainController extends HttpServlet{
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         request.setCharacterEncoding("UTF-8");
-        
-        ActionCommand command = ActionFactory.defineCommand(request);
-        command.execute(request, response);
+        try{
+            ActionCommand command = ActionFactory.defineCommand(request);
+
+            command.execute(request, response);
+        }
+        catch (Exception e){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/ErrorPage.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 }

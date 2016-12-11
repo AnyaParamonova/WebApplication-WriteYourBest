@@ -1,6 +1,7 @@
 package com.command.action;
 
 import com.command.attribute.AttributeList;
+import com.command.attribute.AttributeHandler;
 import com.command.factory.ActionCommand;
 import com.model.action.CompositionWallModel;
 import com.model.composition.Composition;
@@ -23,10 +24,8 @@ public class CreateWallCommand implements ActionCommand {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         HttpSession session = request.getSession();
-        String userNickname = (String)session.getAttribute(AttributeList.NICKNAME_ATTRIBUTE);
-        int userId = (Integer)session.getAttribute(AttributeList.ID_ATTRIBUTE);
+        AuthorizedUser user = AttributeHandler.readUserAttribute(session);
 
-        AuthorizedUser user = new AuthorizedUser(userId, userNickname);
         CompositionWallModel model = new CompositionWallModel(user);
         String currentTheme = model.getCurrentDateTheme();
         request.setAttribute("theme", currentTheme);
@@ -37,7 +36,7 @@ public class CreateWallCommand implements ActionCommand {
 
         request.setAttribute("compositions", htmlCompositionList);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/compositionWall.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/CompositionWallPage.jsp");
         dispatcher.forward(request, response);
     }
 }

@@ -62,6 +62,8 @@ public class SignUpCommand implements ActionCommand{
         HttpSession session = request.getSession();
         session.setAttribute(AttributeList.NICKNAME_ATTRIBUTE, authorizedUser.getNickname());
         session.setAttribute(AttributeList.ID_ATTRIBUTE, authorizedUser.getId());
+        session.setAttribute(AttributeList.EMAIL_ATTRIBUTE, authorizedUser.getEmail());
+        session.setAttribute(AttributeList.TYPE_ATTRIBUTE, authorizedUser.getType());
         out.write("");
     }
 

@@ -13,8 +13,8 @@
     <meta lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/style.common.css" rel="stylesheet">
-    <link href="/css/style.logInPage.css" rel="stylesheet">
+    <link href="/css/common.css" rel="stylesheet">
+    <link href="/css/log.in.css" rel="stylesheet">
     <link rel="icon" type="img/ico" href="/image/logo.ico">
 
     <script src="/js/jquery-3.1.1.min.js"></script>
@@ -24,10 +24,10 @@
 <body style='background: url("../image/background.jpg") no-repeat; background-size: cover;'>
 
 <div id="topBanner">
-    <%@include file="/html/navbarBeforeAuthorization.html" %>
+    <%@include file="/html/navbar.before.authorization.html" %>
 </div>
 <div id="space"></div>
-<div id="formContainer">
+<div id="form-container">
     <form role="form" id="logInform">
         <div class="form-group">
             <h2>Log in</h2>
@@ -43,7 +43,7 @@
         </div>
         <br>
         <div class="form-group">
-            <button id="logInSubmit" type="button" class="btn btn-info btn-block">Log in</button>
+            <button id="logIn-submit" type="button" class="btn btn-info btn-block">Log in</button>
         </div>
         <br>
         <p class="text-center"><a href="#">Forgot your password?</a></p>
@@ -51,6 +51,6 @@
     </form>
 </div>
 
-<%@include file="/html/footerBeforeAuthorization.html"%>
+<%@include file="/html/footer.before.authorization.html"%>
 </body>
 </html>

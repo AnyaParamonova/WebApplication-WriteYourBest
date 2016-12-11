@@ -3,7 +3,7 @@
  */
 $(document).ready(
     function () {
-        $('#logInSubmit').click(
+        $('#logIn-submit').click(
             function () {
                 var nickname = $('#nickname').val();
                 var password = $('#password').val();

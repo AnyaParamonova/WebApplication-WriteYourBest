@@ -1,0 +1,8 @@
+@import url("bootstrap.min.css");
+
+#save-edit-submit, #save-change-submit{
+    border-radius: 20px;
+    background-color: #2e8041;
+    border-color: white;
+    color: white;
+}

@@ -13,8 +13,8 @@
   <meta lang="en">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/css/style.common.css" rel="stylesheet">
-  <link href="/css/style.index.css" rel="stylesheet">
+  <link href="/css/common.css" rel="stylesheet">
+  <link href="/css/index.css" rel="stylesheet">
   <link rel="icon" type="img/ico" href="/image/logo.ico">
 
   <script src="/js/jquery-3.1.1.min.js"></script>
@@ -24,7 +24,7 @@
 </head>
 <body style='background: url("/image/background.jpg") no-repeat; background-size: cover;'>
 <div id="topBanner">
-  <%@include file="html/navbarBeforeAuthorization.html" %>
+  <%@include file="html/navbar.before.authorization.html" %>
   <div id="getStartedForm">
     <h1 class="text-center">BECOME THE BEST WRITER</h1>
     <h3 class="text-center"><i>Write every day</i></h3>
@@ -73,12 +73,12 @@
         </div>
 
         <p class="text-center"><a href="#">Forgot your password?</a></p>
-        <p class="text-center">Already have an account? <a href="/jsp/logIn.jsp">Log in</a></p>
+        <p class="text-center">Already have an account? <a href="/jsp/LogInPage.jsp">Log in</a></p>
       </form>
     </div>
   </div>
 </div>
 <br><br><br><br><br>
-<%@include file="/html/footerBeforeAuthorization.html"%>
+<%@include file="/html/footer.before.authorization.html"%>
 </body>
 </html>

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Profile | Write your best</title>
+    <title>Edit profile | Write your best</title>
     <meta charset="utf-8">
     <meta lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/style.common.css" rel="stylesheet">
-    <link href="../css/style.createComposition.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/edit.profile.css" rel="stylesheet">
     <link rel="icon" type="img/ico" href="../image/logo.ico">
+
 </head>
 <body>
 
@@ -49,22 +50,55 @@
                         <li class="nav-header text-center">Menu</li>
                         <li><a href="#" style="color: #2b542c;">My compositions</a></li>
                         <li><a href="#" style="color: #2b542c;">Create composition</a></li>
-                        <li><a href="#" style="color: #2b542c;">My friends</a></li>
-                        <li><a href="#" style="color: #2b542c;">Gallery</a></li>
                         <li><a href="#" style="color: #2b542c;">Edit profile</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col-xs-9">
+        <div class="col-xs-6">
             <div class="container-fluid">
-                <form action="#" method="post">
+                <form role="form">
                     <div class="form-group">
-                        <label class="h3" style="color: #2b542c;">$THEME</label>
-                        <textarea name="text" class="form-control" rows="15" placeholder="Write your composition here" required style="color: #2b542c;"></textarea>
+                        <h2>Edit profile</h2>
+                        <span class="text-center" style="color:darkred" id="error-message-edit"></span>
                     </div>
-                    <button name="wcreateButton" id="createButton" type="submit" class="btn btn-default btn-sm pull-right" style="width: 200px">Save</button>
+                    <div class="form-group">
+                        <label class="control-label" for="new-nickname">Change your nickname</label>
+                        <input id="new-nickname" type="text" maxlength="30" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="new-email">Change your email</label>
+                        <input id="new-email" maxlength="30" class="form-control">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button id="save-edit-submit" type="button" class="btn btn-info btn-block">Save</button>
+                    </div>
                 </form>
+                <br>
+                <form role="form">
+                    <div class="form-group">
+                        <h2>Change password</h2>
+                        <span class="text-center" style="color:darkred" id="error-message-change"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="old-password">Enter your old password</label>
+                        <input id="old-password" type="password" maxlength="30" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="new-password">Enter your new password</label>
+                        <input id="new-password" type="password" maxlength="30" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="new-password-rep">Repeate your new password</label>
+                        <input id="new-password-rep" type="password" maxlength="30" class="form-control">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button id="save-change-submit" type="button" class="btn btn-info btn-block">Change</button>
+                    </div>
+                </form>
+                <br><br><br>
             </div>
 
         </div>

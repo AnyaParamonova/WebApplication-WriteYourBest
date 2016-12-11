@@ -17,6 +17,7 @@ public class SignUpDao extends Dao {
     private static String INSERT_USER_QUERY = "INSERT INTO ACCOUNTS(NICKNAME, EMAIL, PASSWORD, TYPE) VALUES (?, ?, ?, \"regular\")";
     private static String SELECT_USER_BY_NICKNAME = "SELECT ID, NICKNAME FROM ACCOUNTS WHERE NICKNAME = ?";
     private static String SELECT_USER_BY_EMAIL = "SELECT ID, EMAIL FROM ACCOUNTS WHERE EMAIL = ?";
+    private static String REGULAR_USER_TYPE = "regular";
 
     public SignUpDao(){
         this(new MySQLConnector());
@@ -32,7 +33,7 @@ public class SignUpDao extends Dao {
             throw new DaoException("SignUpDao: Unregistered user parameter is null");
 
         int addedUserId = insertUserIntoDatabase(user);
-        return new AuthorizedUser(addedUserId, user.getNickname());
+        return new AuthorizedUser(addedUserId, user.getNickname(), user.getEmail(), REGULAR_USER_TYPE);
     }
 
     public boolean nicknameIsOccupied(String nickname) throws DaoException{

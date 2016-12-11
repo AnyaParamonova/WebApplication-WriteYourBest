@@ -4,11 +4,9 @@ import com.dao.connector.Connector;
 import com.dao.connector.MySQLConnector;
 import com.dao.exception.DaoException;
 import com.model.composition.Composition;
-import org.w3c.dom.ranges.RangeException;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
  * Created by Anastasia_Paramonova on 28.11.2016.
@@ -45,8 +43,8 @@ public class CompositionDao extends Dao {
         return insertCompositionIntoDatabase(authorId, body);
     }
 
-    public void deleteCompostion(int compositionId) throws DaoException {
-        removeCompostitionFromDatabase(compositionId);
+    public void deleteComposition(int compositionId) throws DaoException {
+        removeCompositionFromDatabase(compositionId);
     }
 
     private boolean insertCompositionIntoDatabase(int authorId, String body) throws DaoException {
@@ -104,7 +102,7 @@ public class CompositionDao extends Dao {
         }
     }
 
-    private void removeCompostitionFromDatabase(int compositionId) throws DaoException {
+    private void removeCompositionFromDatabase(int compositionId) throws DaoException {
         Connection connection = null;
         PreparedStatement deleteCompositionQuery = null;
         try{

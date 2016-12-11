@@ -24,7 +24,7 @@ public class LogInDaoTests {
         SelectedUser actual = underTest.findUser(valueToTest);
 
         //assert
-        SelectedUser expected = new SelectedUser(1, "Anastasia", encrypt.encryptString("qwerty"));
+        SelectedUser expected = new SelectedUser(1, "Anastasia", encrypt.encryptString("qwerty"), "anya9182561@gmail.com", "regular");
         Assert.assertEquals(expected, actual);
 
     }

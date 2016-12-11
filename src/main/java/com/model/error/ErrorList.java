@@ -9,8 +9,8 @@ public class ErrorList {
     public static String PASSWORDS_NOT_EQUAL_ERROR = "Passwords are not equal.";
     public static String PASSWORD_TOO_SMALL = "Password must have at least 6 symbols.";
     public static String BUSY_NICKNAME_ERROR = "Nickname is occupied. Enter another one.";
-    public static String BUSY_EMAIL_ERROR = "Email is busy. Enter another one.";
+    public static String BUSY_EMAIL_ERROR = "Email is occupied. Enter another one.";
     public static String INCORRECT_DATA = "Nickname or password incorrect.";
     public static String SERVER_ERROR = "Server error. Please try later.";
-
+    public static String INCORRECT_PASSWORD = "Password is incorrect.";
 }

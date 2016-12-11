@@ -1,6 +1,7 @@
 package com.command.action;
 
 import com.command.attribute.AttributeList;
+import com.command.attribute.AttributeHandler;
 import com.command.factory.ActionCommand;
 import com.model.action.CompositionWallModel;
 import com.model.user.state.AuthorizedUser;
@@ -19,11 +20,9 @@ public class SaveCompositionCommand implements ActionCommand {
 
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        String userNickname = (String)session.getAttribute(AttributeList.NICKNAME_ATTRIBUTE);
-        int userId = (Integer)session.getAttribute(AttributeList.ID_ATTRIBUTE);
-        String body = request.getParameter(AttributeList.BODY_ATTRIBUTE);
+        AuthorizedUser user = AttributeHandler.readUserAttribute(session);
 
-        AuthorizedUser user = new AuthorizedUser(userId, userNickname);
+        String body = request.getParameter(AttributeList.BODY_ATTRIBUTE);
         CompositionWallModel model = new CompositionWallModel(user);
         model.saveComposition(body);
 

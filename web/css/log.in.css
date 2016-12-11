@@ -6,7 +6,7 @@ html, body{
     margin: 0;
 }
 
-#logInSubmit{
+#logIn-submit {
     border-radius: 20px;
     background-color: #2e8041;
     border-color: white;
@@ -22,7 +22,7 @@ html, body{
     height: 40%;
 }
 
-#formContainer {
+#form-container {
     background-color: white;
     top: 15%;
     left: 25%;

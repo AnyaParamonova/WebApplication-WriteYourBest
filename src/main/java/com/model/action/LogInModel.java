@@ -38,7 +38,7 @@ public class LogInModel {
                 return null;
             }
 
-            return new AuthorizedUser(selectedUser.getId(), selectedUser.getNickname());
+            return new AuthorizedUser(selectedUser.getId(), selectedUser.getNickname(), selectedUser.getEmail(), selectedUser.getType());
         } catch (DaoException e) {
             System.out.println(e.toString());
             errorMessage = ErrorList.SERVER_ERROR;

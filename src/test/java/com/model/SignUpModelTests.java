@@ -24,7 +24,7 @@ public class SignUpModelTests {
         AuthorizedUser actual = underTest.performSingUp();
 
         //assert
-        AuthorizedUser expected = new AuthorizedUser(1, "Egor");
+        AuthorizedUser expected = new AuthorizedUser(1, "Egor", "egor@gmail.com", "regular");
 
         Assert.assertEquals(expected, actual);
     }

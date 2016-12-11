@@ -92,7 +92,7 @@ public class CompositionWallModel {
     public void deleteComposition(int compositionId){
         CompositionDao dao = new CompositionDao();
         try {
-            dao.deleteCompostion(compositionId);
+            dao.deleteComposition(compositionId);
         } catch (DaoException e) {
             System.out.println(e.getMessage());
         }

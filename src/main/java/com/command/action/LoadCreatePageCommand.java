@@ -1,6 +1,7 @@
 package com.command.action;
 
 import com.command.attribute.AttributeList;
+import com.command.attribute.AttributeHandler;
 import com.command.factory.ActionCommand;
 import com.model.action.CompositionWallModel;
 import com.model.user.state.AuthorizedUser;
@@ -20,14 +21,13 @@ public class LoadCreatePageCommand implements ActionCommand {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         HttpSession session = request.getSession();
-        String userNickname = (String)session.getAttribute(AttributeList.NICKNAME_ATTRIBUTE);
-        int userId = (Integer)session.getAttribute(AttributeList.ID_ATTRIBUTE);
-        AuthorizedUser user = new AuthorizedUser(userId, userNickname);
+        AuthorizedUser user = AttributeHandler.readUserAttribute(session);
+
         CompositionWallModel model = new CompositionWallModel(user);
         String theme = model.getCurrentDateTheme();
 
         request.setAttribute(AttributeList.THEME_ATTRIBUTE, theme);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/createComposition.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/CreateCompositionPage.jsp");
         dispatcher.forward(request, response);
     }
 }

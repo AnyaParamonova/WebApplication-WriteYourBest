@@ -46,6 +46,16 @@ public enum CommandEnum{
         {
             this.command = new DeleteCompositionCommand();
         }
+    },
+    UPDATEDATA{
+        {
+            this.command = new UpdateDataCommand();
+        }
+    },
+    CHANGEPASSWORD{
+        {
+            this.command = new ChangePasswordCommand();
+        }
     };
 
     ActionCommand command;

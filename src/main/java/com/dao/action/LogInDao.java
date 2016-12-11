@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class LogInDao extends Dao {
 
-    private static String SELECT_USER_BY_NICKNAME = "SELECT ID, NICKNAME, PASSWORD FROM ACCOUNTS WHERE NICKNAME=?";
+    private static String SELECT_USER_BY_NICKNAME = "SELECT ID, NICKNAME, PASSWORD, EMAIL, TYPE FROM ACCOUNTS WHERE NICKNAME=?";
 
     public LogInDao(){
         this(new MySQLConnector());
@@ -46,8 +46,10 @@ public class LogInDao extends Dao {
                 int id = selectResult.getInt("id");
                 String name = selectResult.getString("nickname");
                 String password = selectResult.getString("password");
+                String email = selectResult.getString("email");
+                String type = selectResult.getString("type");
 
-                return new SelectedUser(id, name, password);
+                return new SelectedUser(id, name, password, email, type);
             }
             return null;
         }

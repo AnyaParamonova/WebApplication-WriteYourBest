@@ -28,7 +28,7 @@ public class SignUpDaoTests {
         AuthorizedUser actual = underTest.signUpUser(valueToTest);
 
         //assert
-        AuthorizedUser expected = new AuthorizedUser(3, valueToTest.getNickname());
+        AuthorizedUser expected = new AuthorizedUser(3, valueToTest.getNickname(), "rakkatakka@gmail.com", "regular");
 
         Assert.assertEquals(expected, actual);
     }

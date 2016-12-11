@@ -7,14 +7,22 @@ public class AuthorizedUser {
 
     private int id;
     private String nickname;
+    private String email;
+    private String type;
 
-    public AuthorizedUser(int id, String nickname){
+    public AuthorizedUser(int id, String nickname, String email, String type){
 
         if(nickname == null)
             throw new NullPointerException("nickname");
+        if(email == null)
+            throw new NullPointerException("email");
+        if(type == null)
+            throw new NullPointerException("type");
 
         this.id = id;
         this.nickname = nickname;
+        this.email = email;
+        this.type = type;
     }
 
     public int getId() {
@@ -25,6 +33,15 @@ public class AuthorizedUser {
         return nickname;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -33,14 +50,18 @@ public class AuthorizedUser {
         AuthorizedUser that = (AuthorizedUser) o;
 
         if (id != that.id) return false;
-        return nickname != null ? nickname.equals(that.nickname) : that.nickname == null;
+        if (!nickname.equals(that.nickname)) return false;
+        if (!email.equals(that.email)) return false;
+        return type.equals(that.type);
 
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (nickname != null ? nickname.hashCode() : 0);
+        int result = id;
+        result = 31 * result + nickname.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + type.hashCode();
         return result;
     }
 }

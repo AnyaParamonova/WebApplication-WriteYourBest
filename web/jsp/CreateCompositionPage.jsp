@@ -6,13 +6,13 @@
 %>
 <html>
 <head>
-    <title>Profile | Write your best</title>
+    <title>Create | Write your best</title>
     <meta charset="utf-8">
     <meta lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/style.common.css" rel="stylesheet">
-    <link href="/css/style.createComposition.css" rel="stylesheet">
+    <link href="/css/common.css" rel="stylesheet">
+    <link href="/css/create.composition.css" rel="stylesheet">
     <link rel="icon" type="img/ico" href="/image/logo.ico">
 
     <script src="/js/jquery-3.1.1.min.js"></script>
@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<%@include file="/html/navbarAfterAuthorization.html"%>
+<%@include file="/html/navbar.after.authorization.html"%>
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-3">
@@ -40,7 +40,7 @@
     </div>
 </div>
 
-<%@include file="/html/footerAfterAuthorization.html"%>
+<%@include file="/html/footer.after.authorization.html"%>
 <br><br><br><br><br>
 </body>
 </html>
