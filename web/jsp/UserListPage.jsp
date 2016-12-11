@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    if(session == null || session.getAttribute("nickname") == null){
+    if(session == null || session.getAttribute("nickname") == null || !session.getAttribute("type").equals("admin")){
         response.sendRedirect("/index.jsp");
     }
 %>
@@ -25,16 +25,12 @@
 <div class="container-fluid" >
     <div class="row">
         <div class="col-xs-3">
-            <%@include file="/html/menu.user.html"%>
+            <%@include file="/html/menu.admin.html"%>
         </div>
         <div class="col-xs-9">
-            <div class="well">
-                <h5>Please, write your composition on the today's theme</h5>
-                <h3>${requestScope.theme}</h3>
-            </div>
             <div id="compositions-box">
                 <div class="container-fluid" id="compositions-wrapper">
-                    ${requestScope.compositions}
+                    ${requestScope.users}
                 </div>
             </div>
 

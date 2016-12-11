@@ -3,8 +3,11 @@ package com.dao.action;
 import com.dao.connector.Connector;
 import com.dao.connector.MySQLConnector;
 import com.dao.exception.DaoException;
+import com.model.composition.Composition;
+import com.model.composition.Theme;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by Anastasia_Paramonova on 28.11.2016.
@@ -13,6 +16,7 @@ public class ThemeDao extends Dao {
 
     private static String INSERT_THEME_QUERY = "INSERT INTO THEMES(ADMIN_ID, BODY) VALUES (?, ?)";
     private static String SELECT_LAST_ADDED_THEME = "SELECT ID, BODY FROM THEMES ORDER BY CREATION_DATE DESC LIMIT 1";
+    private static String SELECT_ALL_THEMES = "SELECT ID, BODY, CREATION_DATE FROM themes ORDER BY CREATION_DATE DESC";
 
     public ThemeDao(Connector connector) {
         super(connector);
@@ -31,6 +35,10 @@ public class ThemeDao extends Dao {
 
     public String extractCurrentDateTheme() throws DaoException {
         return selectThemeFromDatabase();
+    }
+
+    public ArrayList<Theme> extractAllThemes() throws DaoException{
+        return selectThemesFromDatabase();
     }
 
     private boolean insertThemeIntoDatabase(int adminId, String body) throws DaoException {
@@ -73,6 +81,35 @@ public class ThemeDao extends Dao {
         finally {
             closeResultSet(selectResult);
             closeStatement(selectUserQuery);
+            closeConnection(connection);
+        }
+    }
+
+    private ArrayList<Theme> selectThemesFromDatabase() throws DaoException {
+        Connection connection = null;
+        PreparedStatement selectThemesQuery = null;
+        ResultSet selectResult = null;
+        try{
+            ArrayList<Theme> themes = new ArrayList<Theme>();
+            connection = connector.getConnection();
+            selectThemesQuery = connection.prepareStatement(SELECT_ALL_THEMES);
+
+            selectResult = selectThemesQuery.executeQuery();
+            while (selectResult.next()){
+                int id = selectResult.getInt("id");
+                String theme = selectResult.getString("body");
+                Timestamp creationDate = selectResult.getTimestamp("creation_date");
+
+                themes.add(new Theme(id, theme,creationDate));
+            }
+            return themes;
+        }
+        catch (SQLException e){
+            throw new DaoException("ThemeDao: Error select themes", e);
+        }
+        finally {
+            closeResultSet(selectResult);
+            closeStatement(selectThemesQuery);
             closeConnection(connection);
         }
     }

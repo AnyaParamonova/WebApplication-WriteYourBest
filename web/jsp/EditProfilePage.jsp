@@ -33,7 +33,7 @@
 <div class="container-fluid" >
     <div class="row">
         <div class="col-xs-3">
-            <%@include file="/html/menu.html"%>
+            <%@include file="/html/menu.user.html"%>
         </div>
         <div class="col-xs-6">
             <div class="container-fluid">

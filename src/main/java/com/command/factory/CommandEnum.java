@@ -17,6 +17,11 @@ public enum CommandEnum{
             this.command = new SignUpCommand();
         }
     },
+    DETERMINE{
+        {
+            this.command = new DetermineUserTypeCommand();
+        }
+    },
     LOGOUT{
         {
             this.command = new LogOutCommand();
@@ -55,6 +60,21 @@ public enum CommandEnum{
     CHANGEPASSWORD{
         {
             this.command = new ChangePasswordCommand();
+        }
+    },
+    ADDTHEME{
+        {
+            this.command = new AddThemeCommand();
+        }
+    },
+    THEMELIST{
+        {
+            this.command = new ThemeListCommand();
+        }
+    },
+    USERLIST{
+        {
+            this.command = new UserListCommand();
         }
     };
 

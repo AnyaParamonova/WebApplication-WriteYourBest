@@ -2,7 +2,7 @@
 
 <%
     if(session != null && session.getAttribute("nickname") != null){
-      RequestDispatcher dispatcher = request.getRequestDispatcher("/WriteYourBest.do?action=CREATEWALL");
+      RequestDispatcher dispatcher = request.getRequestDispatcher("/WriteYourBest.do?action=DETERMINE");
       dispatcher.forward(request, response);
     }
 %>

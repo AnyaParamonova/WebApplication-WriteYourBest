@@ -26,7 +26,7 @@ public class CompositionDao extends Dao {
     }
 
 
-    public ArrayList<Composition> getCompositionList(int userId, int offset, int count) throws DaoException {
+    public ArrayList<Composition> extractCompositionList(int userId, int offset, int count) throws DaoException {
         if(offset < 0)
             throw new IllegalArgumentException("offset");
 

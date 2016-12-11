@@ -17,7 +17,7 @@ $(document).ready(
                                 $('#errorMessage').html(result);
                             }
                             else {
-                                window.location.href = '/WriteYourBest.do?action=CREATEWALL';
+                                window.location.href = '/WriteYourBest.do?action=DETERMINE';
                             }
                         }
                     }

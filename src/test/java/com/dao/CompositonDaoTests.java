@@ -46,7 +46,7 @@ public class CompositonDaoTests {
         int count = 2;
 
         //act
-        ArrayList<Composition> result = underTest.getCompositionList(1, offset, count);
+        ArrayList<Composition> result = underTest.extractCompositionList(1, offset, count);
 
         //assert
         int expected = 2;
@@ -63,7 +63,7 @@ public class CompositonDaoTests {
         int count = 2;
 
         //act
-        ArrayList<Composition> result = underTest.getCompositionList(1, offset, count);
+        ArrayList<Composition> result = underTest.extractCompositionList(1, offset, count);
 
         //assert
         int expected = 0;
@@ -80,7 +80,7 @@ public class CompositonDaoTests {
         int count = 2000;
 
         //act
-        ArrayList<Composition> result = underTest.getCompositionList(1, offset, count);
+        ArrayList<Composition> result = underTest.extractCompositionList(1, offset, count);
 
         //assert
         int expected = 2;

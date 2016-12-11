@@ -15,7 +15,7 @@ public class CompositionWallModel {
 
     private static int DEFAULT_PORTION_SIZE = 5;
     private static String COMPOSITION_TEMPLATE =
-            "<form id='comp_$ID' action='all_messages.php' method='post' class='row'>\n" +
+            "<form id='comp_$ID' method='post' class='row'>\n" +
                     "<div class='form-group' style='border: 2px solid #2b542c; padding: 20px; border-radius: 5px'>\n" +
                     "<button value='$ID' class='close' type='button'>&times</button>\n" +
                     "<h3 style='color: #2b542c'>$THEME</h3>\n" +
@@ -54,7 +54,7 @@ public class CompositionWallModel {
     public ArrayList<Composition> getNextCompositionPortion(int offset, int portionSize){
         try {
             CompositionDao dao = new CompositionDao();
-            return dao.getCompositionList(user.getId(), offset, portionSize);
+            return dao.extractCompositionList(user.getId(), offset, portionSize);
         } catch (DaoException e) {
             System.out.println(e.getMessage());
             return new ArrayList<Composition>();
