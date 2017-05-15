@@ -1,4 +1,4 @@
-DROP DATABASE write_your_best_database;
+DROP DATABASE IF EXISTS Xwrite_your_best_database;
 
 CREATE DATABASE write_your_best_database;
 

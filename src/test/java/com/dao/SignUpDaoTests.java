@@ -22,13 +22,13 @@ public class SignUpDaoTests {
         //arrange
         SignUpDao underTest = new SignUpDao();
         Encrypt encrypt = new HashEncrypt();
-        UnregisteredUser valueToTest = new UnregisteredUser("Roman", "rakkatakka@gmail.com", encrypt.encryptString("123456"));
+        UnregisteredUser valueToTest = new UnregisteredUser("Savva", "savva@gmail.com", encrypt.encryptString("123456"));
 
         //act
         AuthorizedUser actual = underTest.signUpUser(valueToTest);
 
         //assert
-        AuthorizedUser expected = new AuthorizedUser(3, valueToTest.getNickname(), "rakkatakka@gmail.com", "regular");
+        AuthorizedUser expected = new AuthorizedUser(3, valueToTest.getNickname(), "savva@gmail.com", "regular");
 
         Assert.assertEquals(expected, actual);
     }
